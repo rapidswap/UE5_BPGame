@@ -13,6 +13,8 @@ UE_DEFINE_GAMEPLAY_TAG_STATIC(TAG_State_Dead, "State.Dead");
 UBPAttackGameplayAbility::UBPAttackGameplayAbility()
 {
 	InstancingPolicy = EGameplayAbilityInstancingPolicy::InstancedPerActor;
+	ReplicationPolicy = EGameplayAbilityReplicationPolicy::ReplicateNo;
+	NetExecutionPolicy = EGameplayAbilityNetExecutionPolicy::LocalOnly;
 
 	FGameplayTagContainer AssetTags;
 	AssetTags.AddTag(TAG_Ability_Attack);
@@ -54,7 +56,7 @@ void UBPAttackGameplayAbility::ActivateAbility(
 
 	if (!MontageToPlay || !CommitAbility(Handle, ActorInfo, ActivationInfo))
 	{
-		EndAbility(Handle, ActorInfo, ActivationInfo, true, true);
+		EndAbility(Handle, ActorInfo, ActivationInfo, false, true);
 		return;
 	}
 
@@ -102,6 +104,6 @@ void UBPAttackGameplayAbility::FinishAbility(const bool bWasCancelled)
 		GetCurrentAbilitySpecHandle(),
 		GetCurrentActorInfo(),
 		GetCurrentActivationInfo(),
-		true,
+		false,
 		bWasCancelled);
 }

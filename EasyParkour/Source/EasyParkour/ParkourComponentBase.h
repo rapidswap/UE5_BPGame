@@ -14,6 +14,45 @@ class UCharacterMovementComponent;
 class USkeletalMeshComponent;
 
 
+USTRUCT(BlueprintType)
+struct EASYPARKOUR_API FParkourWallScanResult
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadOnly)
+	bool bHasFacedWall = false;
+
+	UPROPERTY(BlueprintReadOnly)
+	bool bHasFirstTop = false;
+
+	UPROPERTY(BlueprintReadOnly)
+	bool bHasLastTop = false;
+
+	UPROPERTY(BlueprintReadOnly)
+	bool bHasEndOfWall = false;
+
+	UPROPERTY(BlueprintReadOnly)
+	bool bHasVaultLanding = false;
+	
+	UPROPERTY(BlueprintReadOnly)
+	FHitResult FacedWallHitResult;
+
+	UPROPERTY(BlueprintReadOnly)
+	FHitResult FirstTopHitResult;
+
+	UPROPERTY(BlueprintReadOnly)
+	FHitResult LastTopHitResult;
+
+	UPROPERTY(BlueprintReadOnly)
+	FHitResult EndOfWallHitResult;
+
+	UPROPERTY(BlueprintReadOnly)
+	FHitResult VaultLandingResult;
+
+	UPROPERTY(BlueprintReadOnly)
+	FRotator WallRotation = FRotator::ZeroRotator;
+};
+
 UCLASS( Blueprintable, BlueprintType,ClassGroup=(Parkour), meta=(BlueprintSpawnableComponent) )
 class EASYPARKOUR_API UParkourComponentBase : public UActorComponent
 {
@@ -30,8 +69,8 @@ protected:
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "Parkour|Detection", meta = (DisplayName = "Detect Wall Native"))
 	bool DetectWallNative(FHitResult& OutHitResult, FVector& OutHitLocation, FVector& OutReversedNormal) const;
 	
-	UFUNCTION(BlueprintCallable,BlueprintPure=false,Category="Pakour|Detection",meta = (DisplayName = "Scan Wall Native"))
-	void ScanWallNative() const;
+	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "Parkour|Detection", meta = (DisplayName = "Scan Wall Native"))
+	bool ScanWallNative(const FVector& DetectLocation, const FVector& ReversedNormal, FParkourWallScanResult& OutResult) const;
 
 
 public:	

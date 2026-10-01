@@ -22,19 +22,17 @@ public:
 
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 
-	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
-
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Health,Category="Attributes")
+	UPROPERTY(BlueprintReadOnly, Category="Attributes")
 	FGameplayAttributeData Health;
 
 	ATTRIBUTE_ACCESSORS_BASIC(UBPCombatAttributeSet, Health)
 
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxHealth, Category = "Attributes")
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData MaxHealth;
 
 	ATTRIBUTE_ACCESSORS_BASIC(UBPCombatAttributeSet, MaxHealth)
 
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_AttackPower, Category = "Attributes")
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData AttackPower;
 
 	ATTRIBUTE_ACCESSORS_BASIC(UBPCombatAttributeSet, AttackPower)
@@ -43,14 +41,4 @@ public:
 	FGameplayAttributeData Damage;
 
 	ATTRIBUTE_ACCESSORS_BASIC(UBPCombatAttributeSet, Damage)
-
-protected:
-	UFUNCTION()
-	void OnRep_Health(const FGameplayAttributeData& OldValue);
-
-	UFUNCTION()
-	void OnRep_MaxHealth(const FGameplayAttributeData& OldValue);
-
-	UFUNCTION()
-	void OnRep_AttackPower(const FGameplayAttributeData& OldValue);
 };

@@ -13,13 +13,11 @@
 // Sets default values
 ABPCombatCharacterBase::ABPCombatCharacterBase()
 {
-	bReplicates = true;
+	bReplicates = false;
 
 	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
 
-	AbilitySystemComponent->SetIsReplicated(true);
-
-	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Full);
+	AbilitySystemComponent->SetIsReplicated(false);
 
 	CombatAttributeSet = CreateDefaultSubobject<UBPCombatAttributeSet>(TEXT("CombatAttributeSet"));
 
